@@ -1,0 +1,801 @@
+==============================
+SCRIPT NAME: arithmetic_operations_1.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a first number: " x
+read -p "Please enter a second number:" y
+
+sum=`expr $x + $y`
+echo "Result of addition: $sum"
+
+sum=$(expr $x + $y)
+echo "Result of addition: $sum"
+==============================
+SCRIPT NAME: arithmetic_operations_2.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a first number: " x
+read -p "Please enter a second number:" y
+
+let sum=x+y
+echo "Result of addition: $sum"
+
+let sum=$x+$y
+echo "Result of addition: $sum"
+
+let sub=x-y
+echo "Result of subtraction: $sub"
+==============================
+SCRIPT NAME: arithmetic_operations_3.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a first number: " x
+read -p "Please enter a second number:" y
+
+sum=$((x+y))
+echo "Result of addition: $sum"
+
+sum=$(($x+$y))
+echo "Result of addition: $sum"
+==============================
+SCRIPT NAME: arithmetic_operations_4.sh  
+==============================
+
+#! /bin/bash 
+
+read -p "Please enter a first number: " x
+read -p "Please enter a second number:" y
+
+sum=$[x+y]
+echo "Result of addition: $sum"
+
+sum=$[$x+$y]
+echo "Result of addition: $sum"
+==============================
+SCRIPT NAME: array_3.sh  
+==============================
+
+#! /bin/bash
+
+read -p "How many elements in an array? = " n
+
+for ((i=0;i<n;i++))
+do
+  read -p "Enter a value: " arr[i]
+done
+
+echo "All elements in an array = ${arr[@]}"
+unset arr[2]
+unset arr[3]
+echo "All elements in an array after remove operation: ${arr[@]}"
+==============================
+SCRIPT NAME: array_4.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a directory path: " directory
+
+if [ -e $directory ]; then
+	if [ -d $directory ]; then
+		echo "`whoami`"
+		files=$(ls $directory)
+		# echo "${files[@]}"
+		echo
+
+		for file in ${files[@]}
+		do
+		   echo "-----------------------------------"	
+		   echo -ne "$file: "
+		   if [ -r $file ]; then
+			   echo -ne "READ(Y)     "
+	      	   else
+		           echo -ne "READ(N)     "
+		   fi
+	           if [ -w $file ]; then
+			   echo -ne "WRITE(Y)    "
+		   else
+		  	   echo -ne "WRITE(N)    "
+		   fi
+	           if [ -x $file ]; then
+		  	   echo -ne "EXECUTE(Y)     "
+		   else
+		           echo -ne "EXECUTE(N)     "
+		   fi
+	           echo  
+	           echo "-----------------------------------"	   
+	        done	
+	 else
+	    echo "$directory is not a directory"
+         fi	    
+else
+   echo "$directory does not exist"
+fi   
+==============================
+SCRIPT NAME: arrays_1.sh  
+==============================
+
+#! /bin/bash
+
+courses=(Java DevOps PHP .NET SQL Python)
+
+echo "First element: ${courses[0]}" 
+echo "Second element: ${courses[1]}"
+echo "All elements: ${courses[@]}"  
+echo "All elements: ${courses[*]}"     
+echo "All indices: ${!courses[@]}"
+echo "Total no. of elements: ${#courses[@]}"
+==============================
+SCRIPT NAME: arrays_2.sh  
+==============================
+
+#! /bin/bash
+
+courses[0]="Java"
+courses[1]="PHP"
+courses[2]="SQL"
+courses[10]="DevOps"
+courses[15]="Docker"
+
+echo "First element: ${courses[0]}" 
+echo "Second element: ${courses[1]}"
+echo "All elements: ${courses[@]}"  
+echo "All elements: ${courses[*]}"     
+echo "All indices: ${!courses[@]}"
+echo "Total no. of elements: ${#courses[@]}"
+==============================
+SCRIPT NAME: backup.sh  
+==============================
+
+#! /bin/bash
+
+backup()
+{
+   read -p "Please enter a directory path for backup: " directory
+   if [ -e $directory ]; then
+	  if [ -d $directory ]; then
+		 tar -cjf backup.tar $directory
+	  else
+	      echo "Please provide valid directory path"
+              return 1
+          fi
+   else
+      echo "$directory does not exist"
+      return 1
+   fi 
+}
+
+backup 
+if [ $? -ne 0 ]; then
+	echo "Backup is failed."
+else
+	echo "Backup is successful."
+fi
+==============================
+SCRIPT NAME: calculator.sh  
+==============================
+
+#! /bin/bash
+
+calculate()
+{
+  if [ $# -ne 2 ]; then
+	  echo "Please provide exactly 2 parameters".
+  else
+	x=$1
+        y=$2
+        echo "Addition: $[x+y]"
+        echo "Subtraction: $[x-y]"
+        echo "Multiplication: $[x*y]"	
+	echo "Division: $[x/y]"
+  fi 	
+}
+
+calculate 12 6
+calculate 12
+==============================
+SCRIPT NAME: calculator2.sh  
+==============================
+
+#! /bin/bash
+
+calculate() 
+{
+   read -p "Please enter two integers: " x y
+   echo "Addition: $[x+y]"
+   echo "Subtraction: $[x-y]"
+   echo "Multiplication: $[x*y]"
+   echo "Division: $[x/y]"
+}
+
+calculate
+==============================
+SCRIPT NAME: calculator_2.sh  
+==============================
+
+#! /bin/bash
+
+. ./mathutil.sh   # Including mathutil.sh
+
+addition 12 6
+subtraction 12 6
+multiplication 12 6
+division 12 6
+echo "PI = $PI"
+==============================
+SCRIPT NAME: case_statement_1.sh  
+==============================
+
+#! /bin/bash
+
+echo "1. ls"
+echo "2. cal"
+echo "3. date"
+echo "4. pwd"
+echo 
+read -p "Please enter your choice: " ch
+
+case $ch in
+  1) ls
+     ;;
+  2) cal    
+     ;;
+  3) date 
+     ;;
+  4) pwd
+     ;;
+  *) echo "Invalid choice"
+esac
+==============================
+SCRIPT NAME: case_statement_2.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a character: " ch
+
+case $ch in 
+  [a-zA-Z]) echo "$ch is an alphabet." 
+          ;;
+  [0-9]) echo "$ch is a digit."
+       ;;
+  [^a-zA-Z0-9])echo "$ch is a special character."
+             ;;
+  *) echo "Please enter exact one character."
+esac
+==============================
+SCRIPT NAME: command_line_arguments.sh  
+==============================
+
+#! /bin/bash
+
+echo "Script name: $0"
+echo "Total no. of command line arguments: $#"
+echo "First command line argument: $1"
+echo "Second command line argument: $2"
+echo "Third command line argument: $3"
+echo "All command line arguments: $*"
+echo "All command line arguments: $@"
+==============================
+SCRIPT NAME: command_substitution.sh  
+==============================
+
+#! /bin/bash
+
+echo "Today's date: `date +%D`"
+echo "Today's date: $(date +%D)"
+echo "No. of lines inside variable_substitution.sh file: `cat variable_substitution.sh | wc -l`"
+echo "Current date and time: $(date)"
+==============================
+SCRIPT NAME: document_generator.sh  
+==============================
+
+#! /bin/bash
+
+DOCFILE="script_listing"
+
+ls *.sh > tmplisting.txt
+files=($(cat tmplisting.txt))
+
+for file in ${files[@]}; do
+  if [ -f $file ]; then
+     echo "==============================" >> ${DOCFILE}
+     echo "SCRIPT NAME: $file  " >> ${DOCFILE}
+     echo "==============================" >> ${DOCFILE}
+     echo "" >> ${DOCFILE}
+     echo "$(cat $file)" >> ${DOCFILE}
+  fi
+done
+
+chmod 777 ${DOCFILE}
+rm tmplisting.txt
+==============================
+SCRIPT NAME: else-if-ladder.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a filepath: " filename
+
+if [ -L $filename ]; then 
+   echo "File is a link file."
+elif [ -f $filename ]; then
+   echo "File is a regular file."
+elif [ -d $filename ]; then 
+   echo "File is a directory."
+else
+   echo "File is of other type."  	
+fi
+==============================
+SCRIPT NAME: first_script.sh  
+==============================
+
+#! /bin/bash
+echo "Hello"
+date
+cal
+==============================
+SCRIPT NAME: for_loop_1.sh  
+==============================
+
+#! /bin/bash
+
+for i in 1 2 3 4 5
+do
+   echo $i
+done
+==============================
+SCRIPT NAME: for_loop_2.sh  
+==============================
+
+#! /bin/bash
+
+for course in Java PHP SQL .NET DevOps Docker
+do 
+   echo $course
+done
+==============================
+SCRIPT NAME: for_loop_3.sh  
+==============================
+
+#! /bin/bash
+
+for filename in *
+do
+  if [ -f $filename ]; then
+	  echo $filename
+  fi
+done
+==============================
+SCRIPT NAME: function_1.sh  
+==============================
+
+#! /bin/bash
+
+#Define a function
+
+function greet() 
+{
+   echo "Hello World" 
+}
+
+sayHi() 
+{
+  echo "Hiiii"
+}
+
+# Calling a function. While calling a function we don't have to write parenthesis
+greet
+sayHi
+==============================
+SCRIPT NAME: function_parameters.sh  
+==============================
+
+#! /bin/bash
+
+demo() 
+{
+  echo "Total no. of parameters: $#"
+  echo "Name of shell script: $0"
+  echo "First parameter: $1"
+  echo "Second parameter: $2"
+  echo "Third parameter: $3"
+  echo "All parameters: $@"
+}
+
+demo 10 20 30  
+==============================
+SCRIPT NAME: if_else_1.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a first number: " x
+read -p "Please enter a second number: " y
+
+if [ $x -gt $y ]; then
+    echo "$x is grater than $y"
+else
+    echo "$y is greater than $x"
+fi
+==============================
+SCRIPT NAME: if_else_2.sh  
+==============================
+
+#! /bin/bash
+
+if [ $# -ne 2 ]; then
+   echo "Please provide exact 2 command line arguments"
+   exit 1
+fi
+
+# x=$1
+# y=$2
+
+if [ $1 -gt $2 ]; then
+   echo "$1 is greater than $2"
+else
+   echo "$2 is greater than $1"
+fi
+==============================
+SCRIPT NAME: if_statement_1.sh  
+==============================
+
+#! /bin/bash
+
+# user=$(whoami)
+user=`whoami`
+
+if [ user='root' ]; then
+   echo "Hello $user"
+fi
+==============================
+SCRIPT NAME: if_statement_2.sh  
+==============================
+
+#! /bin/bash
+
+read_permission="NO"
+write="NO"
+execute="NO"
+
+read -p "Please enter a filename: " filename
+
+if [ -r $filename ]; then
+	read_permission="YES"
+fi
+
+if [ -w $filename ]; then
+	write="YES"
+fi
+
+if [ -x $filename ]; then
+	execute="YES"
+fi
+
+echo "User Permissions:"
+echo "-------------------------"
+echo "Read Permission: $read_permission"
+echo "Write permission: $write"
+echo "Execute permission: $execute"
+==============================
+SCRIPT NAME: mathutil.sh  
+==============================
+
+#! /bin/bash
+
+PI=3.14159
+
+addition()
+{
+   echo "Addition: $[$1+$2]"
+}
+
+subtraction() 
+{
+   echo "Subtraction: $[$1-$2]"
+}
+
+multiplication()
+{
+   echo "Multiplication: $[$1*$2]"
+}
+
+division()
+{
+   echo "Division: $[$1/$2]"
+}
+==============================
+SCRIPT NAME: maximum.sh  
+==============================
+
+#! /bin/bash
+
+function maximum()
+{
+   read -p "Please provide 2 integers: " x y
+   if [ $x -gt $y ]; then 
+	   echo "$x is maximum"
+   else
+       echo "$y is maximum"
+   fi    
+
+}
+
+maximum
+==============================
+SCRIPT NAME: nested-if-else.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a file name: " filename
+
+if [ -e $filename ]; then
+	if [ -f $filename ]; then
+		if [ -r $filename ]; then 
+		   cat $filename
+	        else
+	           echo "You don't have read persmission."
+                fi
+        else
+          echo "$filename is not a regular file."
+        fi
+else
+  echo "File doesn't exist."
+fi  
+==============================
+SCRIPT NAME: nested_function.sh  
+==============================
+
+#! /bin/bash
+
+greet()
+{
+	echo "Hello World"
+}
+
+sayHi()
+{
+	echo "Hiiii"
+	greet
+}
+
+sayHi
+ 
+==============================
+SCRIPT NAME: print_function_parameters.sh  
+==============================
+
+#! /bin/bash
+
+demo()
+{
+   if [ $# -eq 0 ];then
+	   echo "No parameter is passed to the function"
+   else
+	echo "All parameters: "
+        echo "--------------------"
+        for p in $@
+	do
+	   echo $p
+        done
+   fi	
+}
+
+demo
+demo 10 20 30 40 50 60 70 80
+==============================
+SCRIPT NAME: return_statement_1.sh  
+==============================
+
+#! /bin/bash
+
+addition()
+{
+   if [ $# -ne 2 ]; then
+      echo "Please provide exactly 2 parameters"
+      return 1
+   else
+      x=$1
+      y=$2
+      echo "Addition: $[x+y]"
+   fi         
+}
+
+addition 12 45
+echo "The return value of addition function: $?"
+
+addition 12
+echo "The return value of addition function: $?"
+==============================
+SCRIPT NAME: second_script.sh  
+==============================
+
+echo "Hiii"
+==============================
+SCRIPT NAME: shell__script_variables.sh  
+==============================
+
+#! /bin/bash
+
+name='Amit'
+readonly PATH_TO_DIRECTORY='/usr/src/app'
+
+echo "Home directory: $HOME"
+echo "Hostname: $HOSTNAME"
+echo "Current working directory: $PWD"
+echo "Current user name: $LOGNAME"
+echo "Name: $name"
+echo "Path to directory: $PATH_TO_DIRECTORY"
+==============================
+SCRIPT NAME: table_of_number.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter a number: " n
+
+for ((i=1;i<=10;i++))
+do
+  echo "$n * $i = $[n*i]"
+done
+==============================
+SCRIPT NAME: timer.sh  
+==============================
+
+#! /bin/bash
+
+while [ True ]; do
+  clear
+  echo `date +%H:%M:%S` 
+  sleep 1
+done
+==============================
+SCRIPT NAME: until_loop.sh  
+==============================
+
+#! /bin/bash
+
+i=1
+
+until [ $i -ge 6 ]; do 
+   echo $i
+   let i++
+done
+==============================
+SCRIPT NAME: user_input.sh  
+==============================
+
+#! /bin/bash
+
+echo -n  "Please enter first name: "
+read first_name
+echo -n "Please enter last name: "
+read last_name
+echo -n "Please enter contact number: "
+read phone
+echo -n "Please enter an email id: "
+read email
+
+echo "Your name: $first_name $last_name"
+echo "Your contact number: $phone"
+echo "Your email id: $email"
+==============================
+SCRIPT NAME: user_input2.sh  
+==============================
+
+#! /bin/bash
+
+read -p "Please enter username: " username
+read -s -p "Please enter password: " password
+echo 
+# Logic of validating user credentials.
+echo "Hello $username and your password: $password"
+==============================
+SCRIPT NAME: variable_scope_1.sh  
+==============================
+
+#! /bin/bash
+
+myFunction()
+{
+   echo "x = $x"
+}
+
+x=10
+myFunction
+==============================
+SCRIPT NAME: variable_scope_2.sh  
+==============================
+
+#! /bin/bash
+
+myFunction()
+{
+   x=20
+   echo "x = $x"
+}
+
+x=10
+myFunction
+echo "x = $x"
+==============================
+SCRIPT NAME: variable_scope_3.sh  
+==============================
+
+#! /bin/bash
+
+myFunction()
+{
+   local x=10
+   echo "Inside a function x = $x"
+}
+
+myFunction
+echo "Outside of function x = $x"
+==============================
+SCRIPT NAME: variable_substitution.sh  
+==============================
+
+#! /bin/bash
+
+first_name="AMIT"
+last_name="FEGADE"
+
+echo "${first_name} ${last_name}"
+==============================
+SCRIPT NAME: while_continue_break.sh  
+==============================
+
+i#! /bin/bash
+
+while [ True ]; do
+   
+   read -p "Please enter a filename: " filename
+   if [ -e $filename ]; then
+	   if [ -f $filename ]; then
+		   if [ -r $filename ]; then
+			  echo "File content"
+			  echo "-----------------------"
+			  cat $filename
+			  echo "-----------------------"
+		   else
+		      echo "You don't have read permission."
+	           fi
+           else
+              echo "$filename is not a regular file."
+           fi
+   else
+      echo "$filename does not exist."
+   fi
+  
+   read -p "Would you like to continue [Y/N]?: " ch
+   
+   case $ch in
+     [yY]) continue;
+           ;;
+     [nN]) break;
+           ;;	     
+     *) echo "Please provide y or n."
+	     ;;
+    esac
+done
+==============================
+SCRIPT NAME: while_loop_1.sh  
+==============================
+
+#! /bin/bash
+
+i=1
+
+while [ $i -le 10 ]; do 
+   echo $i
+   let i++
+done
